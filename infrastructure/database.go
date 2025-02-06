@@ -20,4 +20,5 @@ func ConnectDatabase() {
 
 	fmt.Println("Conexión exitosa a la base de datos")
 	DB.AutoMigrate(&domain.Car{}) // AutoMigramos el modelo Car
+	DB.AutoMigrate(&domain.Caja{})
 }

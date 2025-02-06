@@ -4,6 +4,7 @@ import (
 	"apiClienteServidor/application"
 	"apiClienteServidor/handlers"
 	"apiClienteServidor/infrastructure"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,19 +12,30 @@ func main() {
 	// Conectar a la base de datos
 	infrastructure.ConnectDatabase()
 
-	// Inicializar el repositorio, servicio y handler
-	repo := infrastructure.NewCarRepository()
-	service := application.NewCarService(repo)
-	handler := handlers.NewCarHandler(service)
+	// Inicializar repositorios
+	repoCar := infrastructure.NewCarRepository()
+	repoCaja := infrastructure.NewCajaRepository() // Asegúrate de que esta función existe
+
+	// Inicializar servicios
+	serviceCar := application.NewCarService(repoCar)
+	serviceCaja := application.NewCajaService(repoCaja) // Esto debe estar definido en `application/caja_service.go`
+
+	// Inicializar handlers
+	handlerCar := handlers.NewCarHandler(serviceCar)
+	handlerCaja := handlers.NewCajaHandler(serviceCaja) // Esto debe estar definido en `handlers/caja_handler.go`
 
 	// Configurar el servidor Gin
 	r := gin.Default()
 
-	r.GET("/cars", handler.GetCars)
-	r.GET("/cars/:id", handler.GetCar)
-	r.POST("/cars", handler.CreateCar)
-	r.PUT("/cars/:id", handler.UpdateCar)
-	r.DELETE("/cars/:id", handler.DeleteCar)
+	// Rutas de Carros
+	r.GET("/cars", handlerCar.GetCars)
+	r.GET("/cars/:id", handlerCar.GetCar)
+	r.POST("/cars", handlerCar.CreateCar)
+	r.PUT("/cars/:id", handlerCar.UpdateCar)
+	r.DELETE("/cars/:id", handlerCar.DeleteCar)
+
+	// Ruta para obtener el dinero de la caja
+	r.GET("/caja", handlerCaja.GetDinero)
 
 	// Iniciar el servidor
 	r.Run(":8080")
