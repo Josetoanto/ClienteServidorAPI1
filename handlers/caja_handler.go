@@ -15,7 +15,6 @@ func NewCajaHandler(service *application.CajaService) *CajaHandler {
 	return &CajaHandler{service: service}
 }
 
-// GetDinero maneja la solicitud GET para obtener el dinero de la caja
 func (h *CajaHandler) GetDinero(c *gin.Context) {
 	dinero, err := h.service.ObtenerDinero()
 	if err != nil {

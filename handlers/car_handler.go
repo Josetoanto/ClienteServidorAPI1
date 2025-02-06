@@ -9,7 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// CarHandler maneja las peticiones HTTP
 type CarHandler struct {
 	service *application.CarService
 }

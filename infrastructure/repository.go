@@ -4,7 +4,6 @@ import (
 	"apiClienteServidor/domain"
 )
 
-// CarRepositoryImpl implementa la interfaz CarRepository
 type CarRepositoryImpl struct{}
 
 func NewCarRepository() domain.CarRepository {

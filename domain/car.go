@@ -1,6 +1,5 @@
 package domain
 
-// Car define el modelo de datos
 type Car struct {
 	ID     uint    `json:"id" gorm:"primaryKey"`
 	Brand  string  `json:"brand"`
@@ -9,7 +8,6 @@ type Car struct {
 	Precio float64 `json:"precio"` // Nuevo campo
 }
 
-// CarRepository define la interfaz para acceder a los datos
 type CarRepository interface {
 	GetAll() ([]Car, error)
 	GetByID(id uint) (Car, error)

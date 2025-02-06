@@ -4,7 +4,6 @@ import (
 	"apiClienteServidor/domain"
 )
 
-// CarService maneja la lógica de negocio
 type CarService struct {
 	repo domain.CarRepository
 }
